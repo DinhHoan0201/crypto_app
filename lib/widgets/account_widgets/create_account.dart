@@ -174,9 +174,14 @@ class _CreateAccountState extends State<CreateAccount> {
               onPressed: () {
                 CreateAccount(_emailController.text, _passwordController.text);
               },
-              child: Text('Create new one'),
+              child: Text(
+                'Create new one',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -197,8 +202,8 @@ class _CreateAccountState extends State<CreateAccount> {
               GestureDetector(
                 onTap: _navigatortoLogin,
                 child: Text(
-                  style: const TextStyle(
-                    color: Colors.yellow,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                   "Back to Login",

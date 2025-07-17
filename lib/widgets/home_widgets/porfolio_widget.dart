@@ -18,7 +18,7 @@ class PortfolioWidget extends StatelessWidget {
         ),
       );
     }
-    
+
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
@@ -54,7 +54,7 @@ class PortfolioWidget extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        backgroundColor: Colors.yellow,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                       ),
                       onPressed: _navigatortoLogin,
                       child: const Text(

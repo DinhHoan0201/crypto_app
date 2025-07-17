@@ -16,10 +16,7 @@ class MyHeader extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           showDialog(
             context: context,
-            builder:
-                (_) => AlertDialog(
-                  content: SizedBox(height: 300, child: ThemeSelectorDialog()),
-                ),
+            builder: (_) => const ThemeSelectorDialog(),
           );
         },
       ),

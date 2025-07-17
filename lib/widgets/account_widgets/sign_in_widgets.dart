@@ -151,9 +151,14 @@ class _SigninState extends State<Signin> {
               onPressed: () {
                 signIn(_emailController.text, _passwordController.text);
               },
-              child: Text('Sign in'),
+              child: Text(
+                'Sign in',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -174,8 +179,9 @@ class _SigninState extends State<Signin> {
               GestureDetector(
                 onTap: _navigatortoCreateAccount,
                 child: Text(
-                  style: const TextStyle(
-                    color: Colors.yellow,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+
                     fontWeight: FontWeight.bold,
                   ),
                   "Create an account",

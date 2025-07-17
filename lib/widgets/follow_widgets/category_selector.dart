@@ -25,7 +25,10 @@ class CategorySelector extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: isSelected ? Colors.yellow : Colors.transparent,
+                    color:
+                        isSelected
+                            ? Theme.of(context).colorScheme.primary
+                            : Colors.white,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(

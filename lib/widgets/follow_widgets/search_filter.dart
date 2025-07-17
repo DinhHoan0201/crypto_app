@@ -49,7 +49,7 @@ class SearchFilter extends StatelessWidget {
             height: 48,
             width: 48,
             decoration: BoxDecoration(
-              color: Colors.yellow[500],
+              color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(16), // bo nhẹ góc
             ),
             child: Icon(settingsIcon, color: Colors.white), // icon tuỳ chỉnh
