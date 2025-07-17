@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "768064793837",
+    "project_id": "cryptoapp-aaccb",
+    "storage_bucket": "cryptoapp-aaccb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768064793837:android:8789ae6dc575b519ce30e4",
+        "android_client_info": {
+          "package_name": "com.example.crypto_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768064793837-8n3qdilpf5664gmpgonhjl3sfhstq8fd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crypto_app",
+            "certificate_hash": "9c8e9b985f9beff35fcc54578f316f8fb7fbf2f0"
+          }
+        },
+        {
+          "client_id": "768064793837-fra7aedhohlgaen58374qej2fi2ihip9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrPw5ePr3X8rbnaOdmKOOVuyESvYmLikg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768064793837-fra7aedhohlgaen58374qej2fi2ihip9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "768064793837-9csoomsfo7d80db0em1advhr8kir9c2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cryptoApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768064793837:android:91c96ce1bed6d285ce30e4",
+        "android_client_info": {
+          "package_name": "com.example.crypto_app_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768064793837-fra7aedhohlgaen58374qej2fi2ihip9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrPw5ePr3X8rbnaOdmKOOVuyESvYmLikg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768064793837-fra7aedhohlgaen58374qej2fi2ihip9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "768064793837-9csoomsfo7d80db0em1advhr8kir9c2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cryptoApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768064793837:android:bf7e1fa4d2632bcace30e4",
+        "android_client_info": {
+          "package_name": "com.hoan.cryptoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768064793837-fra7aedhohlgaen58374qej2fi2ihip9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrPw5ePr3X8rbnaOdmKOOVuyESvYmLikg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768064793837-fra7aedhohlgaen58374qej2fi2ihip9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "768064793837-9csoomsfo7d80db0em1advhr8kir9c2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cryptoApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
