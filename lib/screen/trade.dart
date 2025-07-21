@@ -123,7 +123,9 @@ class Trade extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {},
                     child: Text('Buy', style: TextStyle(color: Colors.white)),
-                    style: TextButton.styleFrom(backgroundColor: Colors.yellow),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
 
@@ -132,7 +134,9 @@ class Trade extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {},
                     child: Text('Sell', style: TextStyle(color: Colors.white)),
-                    style: TextButton.styleFrom(backgroundColor: Colors.yellow),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ],

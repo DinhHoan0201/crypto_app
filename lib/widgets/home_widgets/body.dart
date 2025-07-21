@@ -20,7 +20,7 @@ class _Body extends State<Body> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final coinProvider = Provider.of<CoinProvider>(context, listen: false);
       coinProvider
-          .fetchCoins(10, 1)
+          .fetchCoins(3, 1)
           .then((_) {
             setState(() {
               allcoins = coinProvider.coins;

@@ -180,8 +180,7 @@ class _SigninState extends State<Signin> {
                 onTap: _navigatortoCreateAccount,
                 child: Text(
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                   "Create an account",

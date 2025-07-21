@@ -23,4 +23,6 @@ class UserPortfolio {
       portfolio: portfolio,
     );
   }
+
+  void forEach(Null Function(dynamic symbol, dynamic amount) param0) {}
 }

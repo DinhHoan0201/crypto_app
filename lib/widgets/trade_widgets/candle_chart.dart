@@ -87,7 +87,9 @@ class _CandleChartState extends State<CandleChart>
                           },
                           style: TextButton.styleFrom(
                             backgroundColor:
-                                isSelected ? Colors.yellow : Colors.white,
+                                isSelected
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.white,
                           ),
                           child: Text(
                             '$day d',
@@ -98,7 +100,7 @@ class _CandleChartState extends State<CandleChart>
                         );
                       }).toList(),
                 ),
-                const SizedBox(height: 12), // khoảng cách giữa Row và chart
+                const SizedBox(height: 12),
                 Expanded(
                   child: KChartWidget(
                     candles,

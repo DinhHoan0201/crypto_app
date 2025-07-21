@@ -47,6 +47,7 @@ dependencies:
   rive: ^0.13.20
   lottie: ^3.3.1
   flex_color_scheme: ^8.2.0
+  flutter_local_notifications: ^19.3.1
 
   
 

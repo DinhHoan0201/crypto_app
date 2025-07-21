@@ -38,6 +38,7 @@ class CoinProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+
 //
 
 // Future<List<TimeValuePoint>> fetchCryptoChartdata(

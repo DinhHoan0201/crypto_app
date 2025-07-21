@@ -18,11 +18,15 @@ class _Functionbutton extends State<Functionbutton> {
       label: 'Sell',
       onTap: () => print('Sell'),
     ),
-    ActionItem(icon: Icons.swap_horiz, label: 'Swap', onTap: () => ('Swap')),
+    ActionItem(
+      icon: Icons.swap_horiz,
+      label: 'Swap',
+      onTap: () => print('Swap'),
+    ),
     ActionItem(
       icon: Icons.settings,
       label: 'Setting',
-      onTap: () => ('Setting'),
+      onTap: () => print('Setting'),
     ),
   ];
   @override
@@ -41,10 +45,7 @@ class _Functionbutton extends State<Functionbutton> {
                       shape: BoxShape.circle,
                     ),
                     padding: EdgeInsets.all(14),
-                    child: Icon(
-                      item.icon,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
+                    child: Icon(item.icon, color: Colors.white),
                   ),
                   SizedBox(height: 8),
                   Text(

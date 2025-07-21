@@ -14,7 +14,7 @@ class CoinList extends StatelessWidget {
       itemBuilder: (context, index) {
         final coin = coins[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
           child: Container(
             height: 70,
             decoration: BoxDecoration(

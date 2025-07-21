@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_app/screen/main_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:crypto_app/service/fetch_API.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:crypto_app/themes/myTheme_Provider.dart';
+import 'package:crypto_app/service/notification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Notificationservice().initNotifications();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeProvider.themeData,

@@ -1,13 +1,31 @@
+import 'package:crypto_app/model/coinlist_model.dart';
 import 'package:crypto_app/screen/main_screen.dart';
+import 'package:crypto_app/service/fetch_API.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crypto_app/service/fetch_data_users.dart';
 import 'package:crypto_app/model/users_data_model.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:crypto_app/service/notification.dart';
 
-class PortfolioWidget extends StatelessWidget {
+class PortfolioWidget extends StatefulWidget {
   const PortfolioWidget({super.key});
+  @override
+  _PortfolioWidgetState createState() => _PortfolioWidgetState();
+}
 
+class _PortfolioWidgetState extends State<PortfolioWidget> {
+  @override
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Provider.of<CoinProvider>(context, listen: false).fetchCoins(3, 1);
+    });
+  }
+
+  //
   @override
   Widget build(BuildContext context) {
     void _navigatortoLogin() {
@@ -74,84 +92,133 @@ class PortfolioWidget extends StatelessWidget {
             ),
           );
         } else {
-          return FutureBuilder<UserPortfolio?>(
-            future: getUserData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+          return Consumer<CoinProvider>(
+            builder: (context, coinProvider, _) {
+              if (coinProvider.isLoading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Text('Lỗi: ${snapshot.error}');
-              } else if (!snapshot.hasData || snapshot.data == null) {
-                return const Text('Không có dữ liệu portfolio');
-              } else {
-                final portfolio = snapshot.data!;
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+              }
+
+              return FutureBuilder<UserPortfolio?>(
+                future: getUserData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text('Lỗi: ${snapshot.error}');
+                  } else if (!snapshot.hasData || snapshot.data == null) {
+                    return const Text('Không có dữ liệu portfolio');
+                  } else {
+                    final portfolio = snapshot.data!;
+                    //
+                    double totalValue = 0;
+
+                    portfolio.portfolio.forEach((symbol, amount) {
+                      final coin = coinProvider.coins.firstWhere(
+                        (c) => c.symbol == symbol,
+                        orElse: () => CoinListModel.empty(),
+                      );
+
+                      final value = amount * coin.currentPrice ?? 0;
+                      print("🪙 $symbol: amount=$amount,value=$value");
+
+                      totalValue += value;
+                    });
+
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          Text(
+                            '👤 ${portfolio.name}',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            '💰 Balance: \$${portfolio.balance.toStringAsFixed(2)}',
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            '📊 Tổng giá trị danh mục: \$${totalValue.toStringAsFixed(2)}',
+                          ),
+                          const Divider(),
+                          // ...coinWidgets,
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
-                                  "Portfolio",
-                                  style: TextStyle(color: Colors.grey),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Portfolio",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      "\$${portfolio.portfolio['eth']}",
+                                      style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Notificationservice().showNotification(
+                                          id: 0,
+                                          title: 'Portfolio Update',
+
+                                          body: 'hello',
+                                        );
+                                      },
+                                      child: Text(
+                                        "click here to see notification",
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "\$${portfolio.balance.toStringAsFixed(2)}",
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    await FirebaseAuth.instance.signOut();
+                                  },
+                                  child: const Text("Đăng xuất"),
                                 ),
                               ],
                             ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                await FirebaseAuth.instance.signOut();
-                              },
-                              child: const Text("Đăng xuất"),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 200,
-                            child: Text(
-                              'Buy Crypto by your Credit Card',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
                           ),
-                          Transform.scale(
-                            scale: 2,
-                            child: Lottie.asset(
-                              'images/assets/CreditCard.json',
-                              width: 150,
-                              height: 100,
-                              fit: BoxFit.contain,
-                            ),
+                          //
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 200,
+                                child: Text(
+                                  'Buy Crypto by your Credit Card',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Transform.scale(
+                                scale: 2,
+                                child: Lottie.asset(
+                                  'images/assets/CreditCard.json',
+                                  width: 150,
+                                  height: 100,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                );
-              }
+                    );
+                  }
+                },
+              );
             },
           );
         }

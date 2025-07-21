@@ -31,4 +31,17 @@ class CoinListModel {
       low_24h: json['low_24h'].toDouble(),
     );
   }
+
+  factory CoinListModel.empty() {
+    return CoinListModel(
+      id: '',
+      symbol: '',
+      name: '',
+      currentPrice: 0.0,
+      imageUrl: '',
+      priceChangePercentage24h: null,
+      high_24h: 0.0,
+      low_24h: 0.0,
+    );
+  }
 }
