@@ -9,7 +9,7 @@ class Menu extends StatelessWidget {
     Icons.home,
     Icons.account_circle,
     Icons.trending_up,
-    Icons.compare_arrows,
+    Icons.align_vertical_bottom_outlined,
   ];
 
   Widget build(BuildContext context) {

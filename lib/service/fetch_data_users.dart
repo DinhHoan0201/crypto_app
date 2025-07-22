@@ -16,3 +16,14 @@ Future<UserPortfolio?> getUserData() async {
   final userData = UserPortfolio.fromMap(doc.data()!);
   return userData;
 }
+
+Future<void> addUserData(UserPortfolio userData) async {
+  final users = FirebaseAuth.instance.currentUser;
+  if (users == null) return;
+
+  await FirebaseFirestore.instance
+      .collection(FireStorePath.topLevel)
+      .doc(users.uid)
+      .set(userData.toMap());
+  ;
+}

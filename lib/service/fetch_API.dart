@@ -3,13 +3,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:crypto_app/model/OHLC_coin.dart';
 import 'package:crypto_app/model/coinlist_model.dart';
-import 'package:crypto_app/model/Line_coin.dart';
 
 class CoinProvider with ChangeNotifier {
   List<CoinListModel> _coins = [];
   bool _isLoading = false;
   String? _error;
-
+  // CoinProvider() {
+  //   fetchCoins(100, 1); // Fetch initial data
+  // }
   List<CoinListModel> get coins => _coins;
   bool get isLoading => _isLoading;
   String? get error => _error;

@@ -12,8 +12,7 @@ class CandleChart extends StatefulWidget {
   _CandleChartState createState() => _CandleChartState();
 }
 
-class _CandleChartState extends State<CandleChart>
-    with AutomaticKeepAliveClientMixin {
+class _CandleChartState extends State<CandleChart> {
   final timerange = ['1', '3', '7'];
   List<KLineEntity> candles = [];
   List<OHLCcoinModel> ohlcData = [];
@@ -22,7 +21,6 @@ class _CandleChartState extends State<CandleChart>
 
   late Timer _timer;
   @override
-  bool get wantKeepAlive => true;
   @override
   void initState() {
     super.initState();
@@ -67,7 +65,7 @@ class _CandleChartState extends State<CandleChart>
     return isLoading
         ? const Center(child: CircularProgressIndicator())
         : SizedBox(
-          height: MediaQuery.of(context).size.height * 0.6,
+          height: MediaQuery.of(context).size.height * 0.55,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(

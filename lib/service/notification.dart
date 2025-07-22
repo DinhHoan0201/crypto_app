@@ -17,8 +17,6 @@ class Notificationservice {
     );
 
     await notificationsPlugin.initialize(initializationSettings);
-
-    _initialized = true;
   }
   //detail for notification
 
@@ -30,22 +28,20 @@ class Notificationservice {
         channelDescription: 'your_channel_description',
         importance: Importance.max,
         priority: Priority.high,
-        showWhen: false,
       ),
     );
   }
 
   //
   Future<void> showNotification({
-    required int id,
+    int id = 0,
     required String title,
     required String body,
   }) async {
-    return notificationsPlugin.show(
-      id,
-      title,
-      body,
-      const NotificationDetails(),
-    );
+    try {
+      await notificationsPlugin.show(id, title, body, notificationDetails());
+    } catch (e) {
+      print("Lỗi khi hiển thị notification: $e");
+    }
   }
 }

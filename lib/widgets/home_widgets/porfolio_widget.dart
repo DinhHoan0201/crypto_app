@@ -128,18 +128,16 @@ class _PortfolioWidgetState extends State<PortfolioWidget> {
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          Text(
-                            '👤 ${portfolio.name}',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            '💰 Balance: \$${portfolio.balance.toStringAsFixed(2)}',
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            '📊 Tổng giá trị danh mục: \$${totalValue.toStringAsFixed(2)}',
-                          ),
-                          const Divider(),
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     Notificationservice().showNotification(
+                          //       title: 'Portfolio Update',
+                          //       body: 'hello',
+                          //     );
+                          //   },
+                          //   child: Text("click here to see notification"),
+                          // ),
+
                           // ...coinWidgets,
                           Container(
                             decoration: BoxDecoration(
@@ -153,36 +151,46 @@ class _PortfolioWidgetState extends State<PortfolioWidget> {
                                   children: [
                                     const Text(
                                       "Portfolio",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                    const SizedBox(height: 4),
+                                    const SizedBox(height: 5),
                                     Text(
-                                      "\$${portfolio.portfolio['eth']}",
+                                      portfolio.name,
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    const SizedBox(height: 5),
+
+                                    Text(
+                                      "\$${portfolio.balance.toStringAsFixed(0)}",
                                       style: const TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Notificationservice().showNotification(
-                                          id: 0,
-                                          title: 'Portfolio Update',
-
-                                          body: 'hello',
-                                        );
-                                      },
-                                      child: Text(
-                                        "click here to see notification",
-                                      ),
-                                    ),
                                   ],
                                 ),
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    await FirebaseAuth.instance.signOut();
-                                  },
-                                  child: const Text("Đăng xuất"),
+                                Container(
+                                  alignment: Alignment.center,
+                                  width: 100,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.green.withOpacity(0.1),
+                                    border: Border.all(
+                                      color: Colors.green,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    style: TextStyle(
+                                      color: Colors.green,
+                                      fontSize: 14,
+                                    ),
+                                    '\$${totalValue.toStringAsFixed(0)}',
+                                  ),
                                 ),
                               ],
                             ),

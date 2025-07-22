@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_app/model/coinlist_model.dart';
-import 'package:crypto_app/widgets/trade_widgets/candle_chart.dart';
+import 'package:crypto_app/shared/candle_chart.dart';
 
 class Trade extends StatelessWidget {
   final CoinListModel coin;
@@ -20,7 +20,6 @@ class Trade extends StatelessWidget {
       {'label': 'Average', 'value': average},
     ];
     return Scaffold(
-      appBar: AppBar(title: Text('Trade')),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
@@ -100,7 +99,9 @@ class Trade extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          value['value'].toString(),
+                          value['value'] > 1000
+                              ? value['value'].toStringAsFixed(0)
+                              : value['value'].toStringAsFixed(3),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 13,

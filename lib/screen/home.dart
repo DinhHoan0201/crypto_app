@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crypto_app/widgets/home_widgets/porfolio_widget.dart';
 import 'package:crypto_app/widgets/home_widgets/body.dart';
 import 'package:crypto_app/widgets/home_widgets/functionbutton.dart';

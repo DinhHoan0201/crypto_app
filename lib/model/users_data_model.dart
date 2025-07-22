@@ -25,4 +25,8 @@ class UserPortfolio {
   }
 
   void forEach(Null Function(dynamic symbol, dynamic amount) param0) {}
+  // de dua va data firebase
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'balance': balance, 'portfolio': portfolio};
+  }
 }

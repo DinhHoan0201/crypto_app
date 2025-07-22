@@ -1,7 +1,10 @@
+import 'package:crypto_app/providers/selected_coin_provider.dart';
+import 'package:crypto_app/screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_app/model/coinlist_model.dart';
 
 import 'package:crypto_app/screen/trade.dart';
+import 'package:provider/provider.dart';
 
 class CoinList extends StatelessWidget {
   final List<CoinListModel> coins;
@@ -29,9 +32,16 @@ class CoinList extends StatelessWidget {
             ),
             child: GestureDetector(
               onTap: () {
+                Provider.of<SelectedCoinProvider>(
+                  context,
+                  listen: false,
+                ).setCoin(coin);
+                // cái này để lưu coin mang theo trang trade
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Trade(coin: coin)),
+                  MaterialPageRoute(
+                    builder: (context) => MainScreen(initialIndex: 3),
+                  ),
                 );
               },
               child: Padding(
