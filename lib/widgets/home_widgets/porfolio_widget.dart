@@ -3,7 +3,7 @@ import 'package:crypto_app/screen/main_screen.dart';
 import 'package:crypto_app/service/fetch_API.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:crypto_app/service/fetch_data_users.dart';
+import 'package:crypto_app/service/data_users_api.dart';
 import 'package:crypto_app/model/users_data_model.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';

@@ -59,6 +59,8 @@ class _CandleChartState extends State<CandleChart> {
     }
   }
 
+  //add coin
+
   @override
   @override
   Widget build(BuildContext context) {

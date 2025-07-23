@@ -1,12 +1,14 @@
 class UserPortfolio {
   final String name;
   final double balance;
+  final String imgurl;
   final Map<String, double> portfolio;
 
   UserPortfolio({
     required this.name,
     required this.balance,
     required this.portfolio,
+    required this.imgurl,
   });
 
   factory UserPortfolio.fromMap(Map<String, dynamic> map) {
@@ -20,13 +22,19 @@ class UserPortfolio {
     return UserPortfolio(
       name: map['name'] ?? '',
       balance: (map['balance'] ?? 0).toDouble(),
+      imgurl: map['imgurl'] ?? '',
       portfolio: portfolio,
     );
   }
 
   void forEach(Null Function(dynamic symbol, dynamic amount) param0) {}
-  // de dua va data firebase
+  //de dua va data firebase
   Map<String, dynamic> toMap() {
-    return {'name': name, 'balance': balance, 'portfolio': portfolio};
+    return {
+      'name': name,
+      'balance': balance,
+      'portfolio': portfolio,
+      'imgurl': imgurl,
+    };
   }
 }

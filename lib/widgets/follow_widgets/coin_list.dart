@@ -2,7 +2,6 @@ import 'package:crypto_app/providers/selected_coin_provider.dart';
 import 'package:crypto_app/screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_app/model/coinlist_model.dart';
-
 import 'package:crypto_app/screen/trade.dart';
 import 'package:provider/provider.dart';
 

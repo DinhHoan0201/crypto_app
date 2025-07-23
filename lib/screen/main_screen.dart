@@ -1,11 +1,11 @@
 import 'package:crypto_app/model/coinlist_model.dart';
 import 'package:crypto_app/providers/selected_coin_provider.dart';
+import 'package:crypto_app/screen/trade.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_app/shared/header.dart';
 import 'package:crypto_app/shared/menu.dart';
 import 'package:crypto_app/screen/follow.dart';
 import 'package:crypto_app/screen/home.dart';
-import 'package:crypto_app/screen/trade.dart';
 import 'package:crypto_app/screen/account.dart';
 import 'package:crypto_app/widgets/account_widgets/create_account.dart';
 import 'package:provider/provider.dart';

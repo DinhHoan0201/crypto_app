@@ -1,10 +1,10 @@
+import 'package:crypto_app/service/data_users_api.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_app/model/coinlist_model.dart';
 import 'package:crypto_app/shared/candle_chart.dart';
 
 class Trade extends StatelessWidget {
   final CoinListModel coin;
-
   const Trade({super.key, required this.coin});
 
   @override
@@ -19,6 +19,75 @@ class Trade extends StatelessWidget {
       {'label': 'Low', 'value': coin.low_24h},
       {'label': 'Average', 'value': average},
     ];
+    //
+    void _showQuantityDialog(
+      String symbol,
+      double amount,
+      double currentPrice,
+    ) {
+      double tempAmount = amount; // Biến tạm để chỉnh số lượng trong dialog
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return AlertDialog(
+                title: Text("Chọn số lượng $symbol"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Giá hiện tại: $currentPrice"),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: () {
+                            setState(() {
+                              if (tempAmount > 0.01) tempAmount -= 0.01;
+                              if (tempAmount < 0) tempAmount = 0;
+                            });
+                          },
+                        ),
+                        Text(
+                          tempAmount.toStringAsFixed(2),
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: () {
+                            setState(() {
+                              tempAmount += 0.01;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context), // Hủy dialog
+                    child: Text("Hủy"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      addCoin(symbol, amount, currentPrice);
+                      print("Xác nhận mua $tempAmount $symbol");
+                      Navigator.pop(context);
+                    },
+                    child: Text("Xác nhận"),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -122,7 +191,9 @@ class Trade extends StatelessWidget {
                 Container(
                   width: 170,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _showQuantityDialog(coin.symbol, 1.0, coin.currentPrice);
+                    },
                     child: Text('Buy', style: TextStyle(color: Colors.white)),
                     style: TextButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -133,7 +204,9 @@ class Trade extends StatelessWidget {
                 Container(
                   width: 170,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      sellCoin(coin.symbol, 1.0, coin.currentPrice);
+                    },
                     child: Text('Sell', style: TextStyle(color: Colors.white)),
                     style: TextButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,

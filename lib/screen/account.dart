@@ -6,6 +6,9 @@ class Account extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Signin());
+    return Padding(
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 15),
+      child: Signin(),
+    );
   }
 }
