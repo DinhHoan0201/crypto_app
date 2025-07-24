@@ -11,7 +11,6 @@ import 'package:crypto_app/widgets/account_widgets/create_account.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
-  //final String uid;
   final int initialIndex;
   const MainScreen({super.key, this.initialIndex = 0});
   @override
@@ -28,7 +27,6 @@ class _MainScreen extends State<MainScreen> {
     'Trade',
     'Create Account',
   ];
-  //, Trade()];
 
   @override
   void initState() {

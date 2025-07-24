@@ -19,6 +19,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => SelectedCoinProvider()),
       ],
+
       child: const MyApp(),
     ),
   );
@@ -30,27 +31,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
+    final navigatorKey = GlobalKey<NavigatorState>();
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: themeProvider.themeData,
       home: const MainScreen(),
     );
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-
-    //   //theme: FlexThemeData.light(scheme: FlexScheme.mandyRed),
-    //   // theme: ThemeData(
-    //   //   scaffoldBackgroundColor: Colors.white,
-    //   //   primaryColor: Colors.blueGrey,
-    //   //   textTheme: GoogleFonts.poppinsTextTheme(
-    //   //     Theme.of(context).textTheme.apply(
-    //   //       bodyColor: Colors.black,
-    //   //       displayColor: Colors.black,
-    //   //     ),
-    //   //   ),
-    //   // ),
-    //   home: const MainScreen(),
-    // );
   }
 }

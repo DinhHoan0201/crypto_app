@@ -14,21 +14,34 @@ class Profile extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 20),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(75), // bo tròn
-            child: Image.network(
-              userData.imgurl,
-              width: 150,
-              height: 150,
-              fit: BoxFit.cover,
+          if (userData.imgurl.isEmpty)
+            CircleAvatar(
+              radius: 75,
+              backgroundColor: Colors.grey[300],
+              child: Icon(Icons.person, size: 75, color: Colors.grey[700]),
+            )
+          else
+            ClipRRect(
+              borderRadius: BorderRadius.circular(75), // bo tròn
+              child: Image.network(
+                userData.imgurl,
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
           //
           SizedBox(height: 20),
           Text(userData.name),
           Text(userData.balance.toString()),
-          Text(userData.portfolio['btc'].toString()),
-          Text(userData.portfolio['eth'].toString()),
+          //
+          Column(
+            children:
+                userData.portfolio.entries.map((entry) {
+                  return Text('${entry.key}: ${entry.value}');
+                }).toList(),
+          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

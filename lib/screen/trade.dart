@@ -2,6 +2,8 @@ import 'package:crypto_app/service/data_users_api.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_app/model/coinlist_model.dart';
 import 'package:crypto_app/shared/candle_chart.dart';
+import 'package:provider/provider.dart';
+import 'package:crypto_app/service/notification.dart';
 
 class Trade extends StatelessWidget {
   final CoinListModel coin;
@@ -20,46 +22,53 @@ class Trade extends StatelessWidget {
       {'label': 'Average', 'value': average},
     ];
     //
-    void _showQuantityDialog(
-      String symbol,
-      double amount,
-      double currentPrice,
-    ) {
-      double tempAmount = amount; // Biến tạm để chỉnh số lượng trong dialog
-
+    void _Buycoin(String symbol, double amount, double currentPrice) {
+      double tempAmount = amount;
       showDialog(
         context: context,
         builder: (context) {
           return StatefulBuilder(
             builder: (context, setState) {
               return AlertDialog(
-                title: Text("Chọn số lượng $symbol"),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Text("Chọn số lượng $symbol"),
                     Text("Giá hiện tại: $currentPrice"),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        IconButton(
-                          icon: Icon(Icons.remove),
+                        ElevatedButton(
+                          child: Icon(Icons.remove, color: Colors.white),
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(5),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                          ),
                           onPressed: () {
                             setState(() {
-                              if (tempAmount > 0.01) tempAmount -= 0.01;
-                              if (tempAmount < 0) tempAmount = 0;
+                              if (tempAmount > 1) tempAmount -= 1;
+                              if (tempAmount <= 0) tempAmount = 0;
                             });
                           },
                         ),
                         Text(
-                          tempAmount.toStringAsFixed(2),
+                          tempAmount.toStringAsFixed(1),
                           style: TextStyle(fontSize: 20),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.add),
+                        ElevatedButton(
+                          child: Icon(Icons.add, color: Colors.white),
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(5),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                          ),
                           onPressed: () {
                             setState(() {
-                              tempAmount += 0.01;
+                              tempAmount += 1;
                             });
                           },
                         ),
@@ -68,13 +77,102 @@ class Trade extends StatelessWidget {
                   ],
                 ),
                 actions: [
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () => Navigator.pop(context), // Hủy dialog
-                    child: Text("Hủy"),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 17),
+                      child: Text("Hủy"),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       addCoin(symbol, amount, currentPrice);
+                      //
+                      print("Xác nhận mua $tempAmount $symbol");
+                      //
+                      Notificationservice().showNotification(
+                        title: 'Click to check',
+                        body:
+                            'You already bought ${tempAmount}  ${coin.symbol}',
+                      );
+                      Navigator.pop(context);
+                    },
+                    child: Text("Xác nhận"),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    }
+
+    //
+    void _Sellcoin(String symbol, double amount, double currentPrice) {
+      double tempAmount = amount;
+      showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Chọn số lượng $symbol"),
+                    Text("Giá hiện tại: $currentPrice"),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          child: Icon(Icons.remove, color: Colors.white),
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(5),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              if (tempAmount > 1) tempAmount -= 1;
+                              if (tempAmount <= 0) tempAmount = 0;
+                            });
+                          },
+                        ),
+                        Text(
+                          tempAmount.toStringAsFixed(1),
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        ElevatedButton(
+                          child: Icon(Icons.add, color: Colors.white),
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(5),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              tempAmount += 1;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context), // Hủy dialog
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 17),
+                      child: Text("Hủy"),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      sellCoin(symbol, amount, currentPrice);
                       print("Xác nhận mua $tempAmount $symbol");
                       Navigator.pop(context);
                     },
@@ -192,7 +290,8 @@ class Trade extends StatelessWidget {
                   width: 170,
                   child: TextButton(
                     onPressed: () {
-                      _showQuantityDialog(coin.symbol, 1.0, coin.currentPrice);
+                      _Buycoin(coin.symbol, 1.0, coin.currentPrice);
+                      //noitifacaation
                     },
                     child: Text('Buy', style: TextStyle(color: Colors.white)),
                     style: TextButton.styleFrom(
@@ -205,7 +304,7 @@ class Trade extends StatelessWidget {
                   width: 170,
                   child: TextButton(
                     onPressed: () {
-                      sellCoin(coin.symbol, 1.0, coin.currentPrice);
+                      _Sellcoin(coin.symbol, 1.0, coin.currentPrice);
                     },
                     child: Text('Sell', style: TextStyle(color: Colors.white)),
                     style: TextButton.styleFrom(
