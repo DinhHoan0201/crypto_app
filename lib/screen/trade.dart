@@ -86,7 +86,7 @@ class Trade extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      addCoin(symbol, amount, currentPrice);
+                      addCoin(symbol, tempAmount, currentPrice);
                       //
                       print("Xác nhận mua $tempAmount $symbol");
                       //
@@ -94,6 +94,7 @@ class Trade extends StatelessWidget {
                         title: 'Click to check',
                         body:
                             'You already bought ${tempAmount}  ${coin.symbol}',
+                        payload: 'open_profile',
                       );
                       Navigator.pop(context);
                     },
@@ -107,7 +108,7 @@ class Trade extends StatelessWidget {
       );
     }
 
-    //
+    //n
     void _Sellcoin(String symbol, double amount, double currentPrice) {
       double tempAmount = amount;
       showDialog(
@@ -172,8 +173,13 @@ class Trade extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      sellCoin(symbol, amount, currentPrice);
+                      sellCoin(symbol, tempAmount, currentPrice);
                       print("Xác nhận mua $tempAmount $symbol");
+                      Notificationservice().showNotification(
+                        title: 'Click to check',
+                        body: 'You already sold ${tempAmount}  ${coin.symbol}',
+                        payload: 'open_profile',
+                      );
                       Navigator.pop(context);
                     },
                     child: Text("Xác nhận"),
@@ -291,7 +297,6 @@ class Trade extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {
                       _Buycoin(coin.symbol, 1.0, coin.currentPrice);
-                      //noitifacaation
                     },
                     child: Text('Buy', style: TextStyle(color: Colors.white)),
                     style: TextButton.styleFrom(

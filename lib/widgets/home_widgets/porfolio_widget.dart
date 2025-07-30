@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crypto_app/service/data_users_api.dart';
 import 'package:crypto_app/model/users_data_model.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:crypto_app/service/notification.dart';
@@ -164,11 +165,14 @@ class _PortfolioWidgetState extends State<PortfolioWidget> {
                                     const SizedBox(height: 5),
 
                                     Text(
-                                      "\$${portfolio.balance.toStringAsFixed(0)}",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
                                       ),
+                                      NumberFormat.currency(
+                                        locale: 'en_US',
+                                        symbol: '\$',
+                                      ).format(snapshot.data!.balance),
                                     ),
                                   ],
                                 ),
@@ -186,10 +190,13 @@ class _PortfolioWidgetState extends State<PortfolioWidget> {
                                   ),
                                   child: Text(
                                     style: TextStyle(
-                                      color: Colors.green,
                                       fontSize: 14,
+                                      color: Colors.green,
                                     ),
-                                    '\$${totalValue.toStringAsFixed(0)}',
+                                    NumberFormat.currency(
+                                      locale: 'en_US',
+                                      symbol: '\$',
+                                    ).format(totalValue),
                                   ),
                                 ),
                               ],

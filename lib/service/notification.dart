@@ -1,6 +1,7 @@
 import 'package:crypto_app/screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:crypto_app/main.dart'; // import để dung navigator key!
 
 class Notificationservice {
   final notificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -27,18 +28,19 @@ class Notificationservice {
 
     await notificationsPlugin.initialize(
       initializationSettings,
-      // onDidReceiveNotificationResponse: (NotificationResponse response) {
-      //   final payload = response.payload;
-
-      //   if (payload != null && payloadRoutes.containsKey(payload)) {
-      //     navigatorKey.currentState?.push(
-      //       MaterialPageRoute(builder: payloadRoutes[payload]!),
-      //     );
-      //   } else {
-      //     print("Payload không hợp lệ hoặc không có route tương ứng.");
-      //   }
-      // },
+      onDidReceiveNotificationResponse: (NotificationResponse response) {
+        final payload = response.payload;
+        if (payload != null && payloadRoutes.containsKey(payload)) {
+          navigatorKey.currentState?.push(
+            MaterialPageRoute(builder: payloadRoutes[payload]!),
+          );
+          print("Navigating to route for payload: $payload");
+        } else {
+          print("Payload không hợp lệ hoặc không có route tương ứng.");
+        }
+      },
     );
+    _initialized = true;
   }
   //detail for notification
 
@@ -59,9 +61,16 @@ class Notificationservice {
     int id = 0,
     required String title,
     required String body,
+    String? payload,
   }) async {
     try {
-      await notificationsPlugin.show(id, title, body, notificationDetails());
+      await notificationsPlugin.show(
+        id,
+        title,
+        body,
+        notificationDetails(),
+        payload: payload,
+      );
     } catch (e) {
       print("Lỗi khi hiển thị notification: $e");
     }

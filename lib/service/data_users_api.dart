@@ -16,6 +16,23 @@ Future<UserPortfolio?> getUserData() async {
   return userData;
 }
 
+//change password
+Future<void> changePassword(String currentPassword, String newPassword) async {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user == null) return;
+  final credential = EmailAuthProvider.credential(
+    email: user.email!,
+    password: currentPassword,
+  );
+  try {
+    await user.reauthenticateWithCredential(credential);
+    await user.updatePassword(newPassword);
+    print('Password changed successfully');
+  } catch (e) {
+    print('Error changing password: $e');
+  }
+}
+
 Future<void> addData(UserPortfolio userData) async {
   final users = FirebaseAuth.instance.currentUser;
   if (users == null) return;

@@ -28,7 +28,7 @@ class _SigninState extends State<Signin> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const MainScreen(initialIndex: 3),
+        builder: (context) => const MainScreen(initialIndex: 4),
       ),
     );
   }
@@ -213,7 +213,7 @@ class _SigninState extends State<Signin> {
                     snapshot.connectionState == ConnectionState.waiting
                         ? const Center(child: CircularProgressIndicator())
                         : snapshot.hasData
-                        ? Profile(userData: snapshot.data!, email: user.email!)
+                        ? Profile(userData: snapshot.data!)
                         : Center(child: Text('No user data found.')),
           );
         }

@@ -203,7 +203,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 onTap: _navigatortoLogin,
                 child: Text(
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                   "Back to Login",

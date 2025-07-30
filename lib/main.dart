@@ -8,6 +8,7 @@ import 'package:crypto_app/service/fetch_API.dart';
 import 'package:crypto_app/themes/myTheme_Provider.dart';
 import 'package:crypto_app/service/notification.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Notificationservice().initNotifications();
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final navigatorKey = GlobalKey<NavigatorState>();
+
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
