@@ -15,24 +15,41 @@ Future<UserPortfolio?> getUserData() async {
   final userData = UserPortfolio.fromMap(doc.data()!);
   return userData;
 }
+// create an account
 
 //change password
-Future<void> changePassword(String currentPassword, String newPassword) async {
+Future<void> changeProfile(
+  String currentPassword,
+  String newPassword,
+  String newName,
+) async {
   final user = FirebaseAuth.instance.currentUser;
   if (user == null) return;
   final credential = EmailAuthProvider.credential(
     email: user.email!,
     password: currentPassword,
   );
+  final userData = await getUserData();
+  if (userData == null) return;
+  //
+  // rename the user data firestore
+  final updatedName = UserPortfolio(
+    name: newName,
+    balance: userData.balance,
+    portfolio: userData.portfolio,
+    imgurl: userData.imgurl,
+  );
   try {
     await user.reauthenticateWithCredential(credential);
     await user.updatePassword(newPassword);
-    print('Password changed successfully');
+    await addData(updatedName);
+    print('✅ Đã đổi mật khẩu và cập nhật thông tin thành công');
   } catch (e) {
-    print('Error changing password: $e');
+    print('❌ Lỗi đổi mật khẩu: $e');
   }
 }
 
+//
 Future<void> addData(UserPortfolio userData) async {
   final users = FirebaseAuth.instance.currentUser;
   if (users == null) return;
@@ -63,7 +80,6 @@ void addCoin(String symbol, double amount, double currentPrice) async {
 }
 
 //
-
 void sellCoin(String symbol, double amount, double currentPrice) async {
   final userData = await getUserData();
   if (userData == null) return;

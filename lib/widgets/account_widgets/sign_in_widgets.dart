@@ -5,6 +5,7 @@ import 'package:crypto_app/shared/gg_and_fb_btUI.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crypto_app/screen/main_screen.dart';
 import 'package:crypto_app/widgets/account_widgets/profile.dart';
+import 'package:crypto_app/shared/dialog_notifi.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -17,11 +18,14 @@ class _SigninState extends State<Signin> {
   final TextEditingController _passwordController = TextEditingController();
   bool isEmailValid = false;
   bool obsocurePassword = true;
-
+  bool error = false;
   void validateEmail(String value) {
-    setState(() {
-      isEmailValid = RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value);
-    });
+    final isValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}').hasMatch(value);
+    if (isEmailValid != isValid) {
+      setState(() {
+        isEmailValid = isValid;
+      });
+    }
   }
 
   void _navigatortoCreateAccount() {
@@ -53,8 +57,9 @@ class _SigninState extends State<Signin> {
       );
       print('Đăng nhập thành công!');
       _navigatortoHome();
+      error = true;
     } on FirebaseAuthException catch (e) {
-      print('Lỗi: $e');
+      print('Lỗi: $e cannot login ');
     }
   }
 
@@ -163,7 +168,10 @@ class _SigninState extends State<Signin> {
                         SnackBar(content: Text('Please fill in all fields.')),
                       );
                       return;
+                    } else if (error) {
+                      DialogNotifi();
                     }
+
                     signIn(_emailController.text, _passwordController.text);
                   },
                   child: Text(

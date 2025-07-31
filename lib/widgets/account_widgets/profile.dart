@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crypto_app/model/users_data_model.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:crypto_app/widgets/account_widgets/change_infor_diaog.dart';
 
 class Profile extends StatelessWidget {
   final UserPortfolio userData;
@@ -19,32 +20,6 @@ class Profile extends StatelessWidget {
               (coin) => portfolioSymbols.contains(coin.symbol.toLowerCase()),
             )
             .toList();
-    // diaolog update
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _currentPasswordController =
-        TextEditingController();
-    final TextEditingController _newPasswordController =
-        TextEditingController();
-    //
-    void _showUpdateDialog() {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Update Profile'),
-            content: Column(),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
@@ -79,20 +54,7 @@ class Profile extends StatelessWidget {
                   //
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(userData.name),
-                      GestureDetector(
-                        onTap: () {
-                          _showUpdateDialog();
-                        },
-                        child: Text(
-                          'Click to edit profile',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                      ),
-                    ],
+                    children: [Text(userData.name), ChangeProfile()],
                   ),
                 ],
               ),
