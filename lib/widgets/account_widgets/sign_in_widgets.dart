@@ -18,7 +18,6 @@ class _SigninState extends State<Signin> {
   final TextEditingController _passwordController = TextEditingController();
   bool isEmailValid = false;
   bool obsocurePassword = true;
-  bool error = false;
   void validateEmail(String value) {
     final isValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}').hasMatch(value);
     if (isEmailValid != isValid) {
@@ -28,6 +27,7 @@ class _SigninState extends State<Signin> {
     }
   }
 
+  //
   void _navigatortoCreateAccount() {
     Navigator.push(
       context,
@@ -48,7 +48,11 @@ class _SigninState extends State<Signin> {
     );
   }
 
-  Future<void> signIn(String email, String password) async {
+  Future<void> signIn(
+    BuildContext context,
+    String email,
+    String password,
+  ) async {
     final auth = FirebaseAuth.instance;
     try {
       await auth.signInWithEmailAndPassword(
@@ -57,9 +61,9 @@ class _SigninState extends State<Signin> {
       );
       print('Đăng nhập thành công!');
       _navigatortoHome();
-      error = true;
     } on FirebaseAuthException catch (e) {
       print('Lỗi: $e cannot login ');
+      showDialog(context: context, builder: (_) => DialogNotifi());
     }
   }
 
@@ -168,11 +172,13 @@ class _SigninState extends State<Signin> {
                         SnackBar(content: Text('Please fill in all fields.')),
                       );
                       return;
-                    } else if (error) {
-                      DialogNotifi();
                     }
 
-                    signIn(_emailController.text, _passwordController.text);
+                    signIn(
+                      context,
+                      _emailController.text,
+                      _passwordController.text,
+                    );
                   },
                   child: Text(
                     'Sign in',

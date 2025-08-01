@@ -42,7 +42,7 @@ Future<void> changeProfile(
   try {
     await user.reauthenticateWithCredential(credential);
     await user.updatePassword(newPassword);
-    await addData(updatedName);
+    await updateData(updatedName);
     print('✅ Đã đổi mật khẩu và cập nhật thông tin thành công');
   } catch (e) {
     print('❌ Lỗi đổi mật khẩu: $e');
@@ -50,7 +50,7 @@ Future<void> changeProfile(
 }
 
 //
-Future<void> addData(UserPortfolio userData) async {
+Future<void> updateData(UserPortfolio userData) async {
   final users = FirebaseAuth.instance.currentUser;
   if (users == null) return;
 
@@ -76,7 +76,7 @@ void addCoin(String symbol, double amount, double currentPrice) async {
     imgurl: userData.imgurl,
   );
 
-  await addData(updatedUserData);
+  await updateData(updatedUserData);
 }
 
 //
@@ -101,7 +101,7 @@ void sellCoin(String symbol, double amount, double currentPrice) async {
     imgurl: userData.imgurl,
   );
 
-  await addData(updatedUserData);
+  await updateData(updatedUserData);
 }
 
 //
